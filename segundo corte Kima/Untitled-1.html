@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria Patitas Felices - BOM Explorer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4169e1;
+            text-align: center;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        button {
+            background-color: #4169e1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3658c7;
+        }
+        .button-section {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .info-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6f2ff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="titulo">Bienvenido a Veterinaria Patitas Felices</h1>
+        <p id="descripcion">Somos una clínica veterinaria dedicada al cuidado y bienestar de tus mascotas. Contamos con profesionales capacitados y las mejores instalaciones para atender a tus amigos peludos.</p>
+        
+        <div class="button-section">
+            <h2>Navegación:</h2>
+            <div>
+                <button onclick="redirigirGoogle()">Ir a Google</button>
+                <button onclick="history.back()">Página Anterior</button>
+                <button onclick="history.forward()">Página Siguiente</button>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>Información del Navegador:</h2>
+            <p id="browser-info"></p>
+            <button onclick="obtenerUbicacion()">Obtener Mi Ubicación</button>
+            <p id="geo-info">Haz clic en el botón para obtener tu ubicación.</p>
+        </div>
+        
+        <div class="info-section">
+            <h2>Funciones Adicionales:</h2>
+            <button onclick="cambiarTitulo()">Cambiar Título</button>
+            <button onclick="cambiarColorParrafo()">Cambiar Color de Descripción</button>
+            <button onclick="abrirVentana()">Abrir Ventana Temporal</button>
+            <button onclick="mostrarDimensiones()">Mostrar Dimensiones</button>
+        </div>
+    </div>
+
+    <script>
+        // Parte 1: Window - Alerta de bienvenida al cargar la página
+        window.alert("¡Bienvenido a Veterinaria Patitas Felices! Cuidamos de tus mascotas como si fueran nuestras.");
+        
+        // Mostrar las dimensiones de la ventana en la consola
+        console.log("Dimensiones de la ventana:", window.innerWidth, "x", window.innerHeight);
+        
+        // Parte 2: Objeto location
+        console.log("URL completa:", location.href);
+        console.log("Dominio:", location.hostname);
+        
+        // Parte 3: Objeto history
+        console.log("Entradas en el historial:", history.length);
+        
+        // Parte 4: Objeto navigator
+        const browserInfoElement = document.getElementById("browser-info");
+        browserInfoElement.innerHTML = `
+            <strong>Idioma del navegador:</strong> ${navigator.language}<br>
+            <strong>Sistema operativo:</strong> ${navigator.platform}<br>
+            <strong>Estado de conexión:</strong> ${navigator.onLine ? "Conectado" : "Desconectado"}
+        `;
+        
+        // Funciones para los botones
+        function cambiarTitulo() {
+            // Usando getElementById para cambiar el texto del h1
+            document.getElementById("titulo").textContent = "Veterinaria Patitas Felices - ¡Los Mejores en Cuidado Animal!";
+        }
+        
+        function cambiarColorParrafo() {
+            // Usando querySelector para cambiar el color del párrafo a rojo
+            document.querySelector("#descripcion").style.color = "red";
+        }
+        
+        function redirigirGoogle() {
+            location.href = "https://www.google.com";
+        }
+        
+        function abrirVentana() {
+            const nuevaVentana = window.open("", "Ventana Temporal", "width=400,height=300");
+            nuevaVentana.document.write(`
+                <html>
+                <head>
+                    <title>Mensaje Especial</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            margin: 0;
+                            background-color: #e6f2ff;
+                        }
+                        .mensaje {
+                            text-align: center;
+                            padding: 20px;
+                            background-color: white;
+                            border-radius: 10px;
+                            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="mensaje">
+                        <h2>¡Gracias por visitarnos!</h2>
+                        <p>Tenemos promoción especial del 20% de descuento en vacunas esta semana.</p>
+                        <p>Esta ventana se cerrará automáticamente en 3 segundos.</p>
+                    </div>
+                </body>
+                </html>
+            `);
+            
+            // Cerrar automáticamente después de 3 segundos
+            setTimeout(() => {
+                nuevaVentana.close();
+            }, 3000);
+        }
+        
+        function mostrarDimensiones() {
+            alert(`Las dimensiones actuales de tu ventana son: ${window.innerWidth}px de ancho x ${window.innerHeight}px de alto`);
+        }
+        
+        function obtenerUbicacion() {
+            const geoInfo = document.getElementById("geo-info");
+            
+            if (navigator.geolocation) {
+                geoInfo.textContent = "Obteniendo tu ubicación...";
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const latitud = position.coords.latitude;
+                        const longitud = position.coords.longitude;
+                        
+                        geoInfo.innerHTML = `
+                            <strong>Tu ubicación actual:</strong><br>
+                            Latitud: ${latitud}<br>
+                            Longitud: ${longitud}<br>
+                            <small>Podemos usar esta información para recomendarte veterinarias cercanas.</small>
+                        `;
+                        
+                        console.log("Ubicación del usuario:", latitud, longitud);
+                    },
+                    (error) => {
+                        geoInfo.textContent = "No se pudo acceder a tu ubicación. " + error.message;
+                        console.error("Error de geolocalización:", error);
+                    }
+                );
+            } else {
+                geoInfo.textContent = "Tu navegador no soporta geolocalización.";
+            }
+        }
+    </script>
+</body>
+</html>
