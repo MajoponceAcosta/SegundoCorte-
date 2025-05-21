@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfil del Usuario - JSON Interactivo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #f0f0f5;
+      padding: 20px;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px 40px;
+      max-width: 450px;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 0.2em;
+      font-weight: 700;
+      font-size: 2.3rem;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    }
+    p.description {
+      font-size: 1rem;
+      margin-top: 0;
+      margin-bottom: 1.4em;
+      color: #ddd;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.4em;
+      text-align: left;
+      color: #eee;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5em 0.75em;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 1em;
+      outline: none;
+      transition: box-shadow 0.2s ease;
+    }
+    input[type="text"]:focus {
+      box-shadow: 0 0 6px 2px #7b49e1;
+      background-color: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+    #perfil {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 1em;
+      border-radius: 12px;
+      user-select: all;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 1.5em;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.9rem;
+      box-shadow: inset 0 0 5px #fff3;
+    }
+    button {
+      background: linear-gradient(45deg, #7b49e1, #3a00e4);
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.75em 1.5em;
+      border-radius: 35px;
+      margin: 0.3em 0.6em;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(59,0,228,0.6);
+      transition: transform 0.16s ease, box-shadow 0.3s ease;
+      user-select: none;
+      outline-offset: 3px;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(59,0,228,0.85);
+    }
+    button:active {
+      transform: scale(0.95);
+      box-shadow: 0 3px 8px rgba(59,0,228,0.6);
+    }
+    #saludo {
+      margin-top: 1em;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffd600;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      min-height: 1.4em;
+      min-width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-label="Perfil de usuario interactivo con música">
+    <h1>Perfil del Usuario</h1>
+    <p class="description">Visualización JSON interactiva con estado activo, saludo personalizado y música al actualizar perfil</p>
+    <form id="perfilForm" aria-label="Formulario para actualizar el perfil">
+      <label for="nombreInput">Nombre:</label>
+      <input type="text" id="nombreInput" name="nombre" placeholder="Escribe tu nombre" autocomplete="off" required aria-required="true" />
+      <button type="submit" id="actualizarBtn">Actualizar Perfil y Reproducir Música</button>
+    </form>
+    <pre id="perfil" aria-live="polite" aria-atomic="true"></pre>
+    <div>
+      <button id="toggleActivo" aria-pressed="true" aria-label="Alternar estado activo del usuario">Alternar Estado Activo</button>
+      <button id="saludarBtn" aria-label="Mostrar saludo personalizado">Saludar</button>
+    </div>
+    <p id="saludo" aria-live="polite" role="status"></p>
+  </main>
+
+  <!-- Música de fondo en loop, inicialmente pausada -->
+  <audio id="backgroundMusic" loop aria-label="Música de fondo - Bossa Nova Jazz">
+    <source src="https://cdn.pixabay.com/download/audio/2022/02/08/audio_08964792ef.mp3?filename=bossa-nova-jazz-guitar-12408.mp3" type="audio/mpeg" />
+    Tu navegador no soporta el elemento de audio HTML5.
+  </audio>
+
+  <!-- Enlace a script JavaScript externo -->
+  <script src="perfil_json.js" defer></script>
+</body>
+</html>
